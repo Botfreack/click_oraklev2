@@ -8,15 +8,15 @@
     const PLAYLISTS = {
         morning: {
             title: "Ранковий вайб",
-            src: "https://www.youtube.com/embed/videoseries?list=PLxxxxxxxxxxxxxxxxxxxx"
+            src: "https://www.youtube.com/embed/videoseries?list=PL3VrDt_oZrCl0kV8ol_SRTRSBs9DOxb-4"
         },
         day: {
             title: "Вайб на день",
-            src: "https://www.youtube.com/embed/videoseries?list=PLyyyyyyyyyyyyyyyyyyyy"
+            src: "https://www.youtube.com/embed/videoseries?list=PL3VrDt_oZrCloFlhWKBBHem6XAsUCO3f_"
         },
         night: {
             title: "Нічний вайб",
-            src: "https://www.youtube.com/embed/videoseries?list=PLzzzzzzzzzzzzzzzzzzzz"
+            src: "https://www.youtube.com/embed/videoseries?list=PL3VrDt_oZrClwhh4H_Fkv-YqPO1Jyut_A"
         }
     };
 
