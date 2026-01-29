@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Передбачення ✨</title>
+
+    <!-- Шрифти -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=EB+Garamond:wght@400;500&family=Marck+Script&family=Bad+Script&display=swap" rel="stylesheet">
+
+    <!-- Plausible (як дав сервіс) -->
+    <script async src="https://plausible.io/js/pa-TdlGMh4DjYdDLwJqD09Bq.js"></script>
+    <script>
+        window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+        plausible.init()
+    </script>
+
+    <!-- CSS (розбито на файли) -->
+    <link rel="stylesheet" href="./assets/css/00-tokens.css" />
+    <link rel="stylesheet" href="./assets/css/01-base.css" />
+    <link rel="stylesheet" href="./assets/css/02-layout.css" />
+    <link rel="stylesheet" href="./assets/css/03-components.css" />
+    <link rel="stylesheet" href="./assets/css/04-modals.css" />
+</head>
+
+<body>
+<!-- замилення фону при відкритті меню -->
+<div class="menuOverlay" id="menuOverlay" aria-hidden="true"></div>
+
+<!-- Верхня “лінія” -->
+<header class="topbar" aria-label="Верхня панель">
+    <div class="topbar__inner">
+        <div class="meta" aria-label="Дата та час">
+            <!-- ✅ ЗОЛОТО -->
+            <div class="metaBadge uiGold" id="metaDate"></div>
+            <div class="metaBadge uiGold" id="metaTime"></div>
+        </div>
+
+        <div class="topbar__spacer"></div>
+
+        <!-- Кнопка меню -->
+        <!-- ✅ ЗОЛОТО -->
+        <button class="menuBtn uiGold" id="menuBtn" type="button" aria-haspopup="true" aria-expanded="false">
+            Щось глибше
+        </button>
+
+        <!-- Випадаюче меню -->
+        <div class="menu" id="menu" aria-hidden="true">
+            <!-- ✅ ЗОЛОТО -->
+            <button class="menuItem uiGold" id="menuOracle" type="button">
+                Передбачення на сьогодні
+            </button>
+
+            <!-- ✅ ЗОЛОТО -->
+            <button class="menuItem menuItem--hasSub uiGold" id="menuMusic" type="button" aria-expanded="false">
+                Музика для вайбу
+                <span class="menuCaret" aria-hidden="true">▾</span>
+            </button>
+
+            <div class="submenu" id="submenuMusic" aria-hidden="true">
+                <!-- ✅ ЗОЛОТО -->
+                <button class="submenuItem uiGold" type="button" data-playlist="morning">Ранковий вайб</button>
+                <button class="submenuItem uiGold" type="button" data-playlist="day">Вайб на день</button>
+                <button class="submenuItem uiGold" type="button" data-playlist="night">Нічний вайб</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Плеєр (показується тільки після вибору плейлиста) -->
+<section class="playerWrap" id="playerWrap" aria-label="Музика" hidden>
+    <div class="playerCard">
+        <div class="playerTop">
+            <!-- (можеш теж зробити золотим, якщо хочеш) -->
+            <div class="playerTitle uiGold" id="playerTitle">Музика для вайбу</div>
+            <button class="playerClose" id="playerClose" type="button" aria-label="Закрити плеєр">✕</button>
+        </div>
+
+        <div class="playerFrame">
+            <iframe
+                    id="playerIframe"
+                    title="YouTube плейлист"
+                    loading="lazy"
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+            ></iframe>
+        </div>
+    </div>
+</section>
+
+<!-- Основний контент -->
+<main class="content" aria-label="Контент">
+    <!-- Колонка “Вірш дня” -->
+    <section class="poemCol" aria-label="Вірш цього дня">
+        <div class="poemCard">
+            <div class="poemHead">
+                <!-- ✅ ЗОЛОТО -->
+                <div class="poemLabel uiGold">Вірш цього дня</div>
+                <div class="poemDate uiGold" id="poemDate"></div>
+            </div>
+
+            <div class="poemBody" id="poemBody" role="article" aria-live="polite">
+                <!-- сюди JS підставить вірш (залишається БІЛИМ) -->
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Модалка передбачення -->
+<div class="oracleModal" id="oracleModal" aria-hidden="true">
+    <div class="oracleCard" role="dialog" aria-modal="true" aria-label="Передбачення на день">
+        <p class="oracleText" id="oracleText"></p>
+        <button class="oracleClose" id="oracleClose" type="button">Згорнути</button>
+    </div>
+</div>
+
+<!-- JS: порядок важливий -->
+<script src="./assets/js/texts.js"></script>
+<script src="./assets/js/analytics.js"></script>
+<script src="./assets/js/time.js"></script>
+<script src="./assets/js/poems-data.js"></script>
+<script src="./assets/js/poems.js"></script>
+<script src="./assets/js/oracle.js"></script>
+<script src="./assets/js/menu.js"></script>
+<script src="./assets/js/app.js"></script>
+
+</body>
+</html>

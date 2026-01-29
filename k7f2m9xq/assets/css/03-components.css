@@ -1,0 +1,306 @@
+/* =========================================
+   03-components.css — компоненти (бейджі/картки/кнопки/меню)
+   ========================================= */
+
+/* Дата/час */
+.meta{
+    display:flex;
+    gap: 10px;
+    align-items:center;
+}
+
+.metaBadge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding: 10px 14px;
+    border-radius: 14px;
+
+    background:
+            radial-gradient(420px 160px at 20% 20%, rgba(255,255,255,.10), transparent 60%),
+            linear-gradient(180deg, var(--glassA), var(--glassB));
+
+    border: 1px solid rgba(255,236,200,.14);
+
+    box-shadow:
+            0 14px 40px rgba(0,0,0,.35),
+            0 0 0 1px rgba(255,255,255,.04) inset;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+
+    color: rgba(255,235,200,.92);
+    text-shadow: 0 10px 30px rgba(0,0,0,.55);
+}
+
+/* Кнопка меню */
+.menuBtn{
+    padding: 10px 14px;
+    border-radius: 999px;
+
+    background:
+            linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+    border: 1px solid rgba(210,178,119,.34);
+
+    box-shadow:
+            0 14px 40px rgba(0,0,0,.30),
+            0 0 0 1px rgba(255,255,255,.05) inset;
+
+    color: rgba(255,248,235,.92);
+    cursor:pointer;
+
+    font-family: "Marck Script","Bad Script",cursive;
+    font-size: 18px;
+    letter-spacing: .03em;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Випадаюче меню */
+.menu{
+    position:absolute;
+    right: var(--pad);
+    top: calc(10px + env(safe-area-inset-top) + 48px);
+
+    width: min(340px, calc(100vw - 28px));
+    padding: 10px;
+
+    border-radius: var(--radiusM);
+
+    background:
+            radial-gradient(520px 260px at 20% 10%, rgba(255,255,255,.12), transparent 60%),
+            linear-gradient(180deg, rgba(12,12,12,.52), rgba(12,12,12,.35));
+
+    border: 1px solid rgba(255,236,200,.12);
+
+    box-shadow:
+            0 18px 60px rgba(0,0,0,.45),
+            0 0 0 1px rgba(255,255,255,.05) inset;
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    display:none;
+    z-index: 40;
+}
+
+.menu.isOpen{ display:block; }
+
+.menuItem{
+    width:100%;
+    text-align:left;
+    padding: 12px 12px;
+    border-radius: 14px;
+
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.05);
+
+    color: rgba(255,248,235,.92);
+    cursor:pointer;
+
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 16px;
+}
+
+.menuItem + .menuItem{ margin-top: 8px; }
+
+.menuItem--hasSub{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.menuCaret{ opacity:.8; }
+
+.submenu{
+    margin-top: 8px;
+    padding: 6px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,.05);
+    background: rgba(0,0,0,.18);
+    display:none;
+}
+
+.submenu.isOpen{ display:block; }
+
+.submenuItem{
+    width:100%;
+    text-align:left;
+    padding: 10px 10px;
+    border-radius: 12px;
+
+    background: rgba(255,255,255,.05);
+    border: 1px solid rgba(255,255,255,.04);
+
+    color: rgba(255,248,235,.92);
+    cursor:pointer;
+
+    font-family: "Marck Script","Bad Script",cursive;
+    font-size: 18px;
+    letter-spacing: .02em;
+}
+
+.submenuItem + .submenuItem{ margin-top: 6px; }
+
+/* Вірш дня */
+.poemCard{
+    width: min(520px, 92vw);
+    border-radius: var(--radiusL);
+    padding: 16px 16px;
+
+    background:
+            radial-gradient(700px 260px at 20% 15%, rgba(255,255,255,.10), transparent 62%),
+            linear-gradient(180deg, rgba(15,16,15,.35), rgba(15,16,15,.20));
+
+    border: 1px solid rgba(255,236,200,.16);
+
+    box-shadow:
+            var(--shadowSoft),
+            0 0 0 1px rgba(255,255,255,.05) inset;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.poemHead{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.poemLabel{
+    font-family: "Playfair Display","EB Garamond",serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: rgba(255,248,235,.95);
+}
+
+.poemDate{
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 12px;
+    letter-spacing: .08em;
+    opacity: .85;
+}
+
+/* Скрол лише в середині */
+.poemBody{
+    max-height: min(52vh, 520px);
+    overflow:auto;
+    padding-right: 6px;
+
+    font-family: "Marck Script","Bad Script",cursive;
+    font-size: 22px;
+    line-height: 1.45;
+    letter-spacing: .03em;
+
+    color: rgba(255,248,235,.96);
+    text-shadow: 0 10px 30px rgba(0,0,0,.55);
+
+    white-space: pre-line;
+    text-align: center;
+}
+
+/* Плеєр */
+.playerCard{
+    width: min(860px, 96vw);
+    margin: 0 auto;
+    border-radius: var(--radiusL);
+    padding: 12px;
+
+    background:
+            radial-gradient(700px 260px at 20% 15%, rgba(255,255,255,.10), transparent 62%),
+            linear-gradient(180deg, rgba(15,16,15,.35), rgba(15,16,15,.20));
+    border: 1px solid rgba(255,236,200,.16);
+
+    box-shadow: var(--shadowSoft);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.playerTop{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap: 10px;
+    padding: 4px 4px 10px 4px;
+}
+
+.playerTitle{
+    font-family: "Playfair Display","EB Garamond",serif;
+    font-weight: 600;
+    opacity: .95;
+}
+
+.playerClose{
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(255,255,255,.06);
+    color: rgba(255,248,235,.92);
+    cursor:pointer;
+}
+
+.playerFrame{
+    border-radius: 16px;
+    overflow:hidden;
+    border: 1px solid rgba(255,255,255,.06);
+}
+
+.playerFrame iframe{
+    width:100%;
+    height: 180px;
+    border: 0;
+    display:block;
+}
+
+/* Нижня кнопка передбачення (залишаємо як швидкий доступ) */
+/*.oracle-btn{
+    position: fixed;
+    right: 48px;
+    bottom: 48px;
+    z-index: 20;
+
+    padding: 14px 22px;
+    border-radius: 999px;
+
+    background:
+            linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+    border: 1px solid rgba(210,178,119,.34);
+
+    box-shadow:
+            0 18px 55px rgba(0,0,0,.38),
+            0 0 0 1px rgba(255,255,255,.06) inset;
+
+    color: rgba(255,248,235,.92);
+    cursor: pointer;
+
+    font-family: "Marck Script","Bad Script",cursive;
+    font-size: 22px;
+    letter-spacing: .04em;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}*/
+
+/* На мобільному — на всю ширину і не перекриває контент */
+@media (max-width: 680px){
+    .oracle-btn{
+        left: 14px;
+        right: 14px;
+        bottom: calc(12px + env(safe-area-inset-bottom));
+        width: calc(100% - 28px);
+        font-size: 18px;
+        padding: 12px 18px;
+    }
+}
