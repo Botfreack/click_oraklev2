@@ -152,6 +152,16 @@
         // ✅ Оверлей: клік закриває меню (це той шматок, що ти питав “куди додати”)
         overlay?.addEventListener("click", () => closeMenu());
 
+        // Знайдіть елементи меню
+        const menuTarot = document.getElementById("menuTarot");
+
+// Додайте обробник для Таро
+        menuTarot?.addEventListener("click", () => {
+            closeMenu();
+            document.dispatchEvent(new Event("tarot:open"));
+            track("menu_tarot_click", { page: location.pathname });
+        });
+
         // Пункт: передбачення
         menuOracle?.addEventListener("click", () => {
             closeMenu();
@@ -193,5 +203,36 @@
             if (e.key !== "Escape") return;
             if (menu?.classList.contains("isOpen")) closeMenu();
         });
+    });
+})();
+
+// === Tarot open (залізобетон) ===
+(function () {
+    const menuTarot = document.getElementById("menuTarot");
+    const menu = document.getElementById("menu");
+    const overlay = document.getElementById("menuOverlay");
+    const menuBtn = document.getElementById("menuBtn");
+
+    if (!menuTarot) return;
+
+    function closeMenu() {
+        if (menu) {
+            menu.setAttribute("aria-hidden", "true");
+            menu.classList.remove("isOpen");
+        }
+        if (overlay) {
+            overlay.setAttribute("aria-hidden", "true");
+            overlay.classList.remove("isOpen");
+        }
+        if (menuBtn) {
+            menuBtn.setAttribute("aria-expanded", "false");
+        }
+    }
+
+    menuTarot.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        closeMenu();
+        document.dispatchEvent(new Event("tarot:open"));
     });
 })();
