@@ -6,116 +6,156 @@
     <title>Передбачення ✨</title>
 
     <!-- Шрифти -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=EB+Garamond:wght@400;500&family=Marck+Script&family=Bad+Script&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=EB+Garamond:wght@400;500;600&family=Cinzel:wght@400;600;700&family=Marck+Script&family=Bad+Script&display=swap" rel="stylesheet">
 
-    <!-- Plausible (як дав сервіс) -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=EB+Garamond:wght@400;500;600&family=Cinzel:wght@400;600;700&family=Marck+Script&family=Bad+Script&display=swap" rel="stylesheet">
+
+    <!-- Plausible -->
     <script async src="https://plausible.io/js/pa-TdlGMh4DjYdDLwJqD09Bq.js"></script>
     <script>
-        window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
-        plausible.init()
+        window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)};
     </script>
 
-    <!-- CSS (розбито на файли) -->
+    <!-- CSS -->
     <link rel="stylesheet" href="./assets/css/00-tokens.css" />
     <link rel="stylesheet" href="./assets/css/01-base.css" />
     <link rel="stylesheet" href="./assets/css/02-layout.css" />
     <link rel="stylesheet" href="./assets/css/03-components.css" />
     <link rel="stylesheet" href="./assets/css/04-modals.css" />
+    <link rel="stylesheet" href="./assets/css/05-tarot.css" />
 </head>
 
 <body>
-<!-- замилення фону при відкритті меню -->
+
+<!-- Overlay меню -->
 <div class="menuOverlay" id="menuOverlay" aria-hidden="true"></div>
 
-<!-- Верхня “лінія” -->
-<header class="topbar" aria-label="Верхня панель">
+<!-- Верхня панель -->
+<header class="topbar">
     <div class="topbar__inner">
-        <div class="meta" aria-label="Дата та час">
-            <!-- ✅ ЗОЛОТО -->
+        <div class="meta">
             <div class="metaBadge uiGold" id="metaDate"></div>
             <div class="metaBadge uiGold" id="metaTime"></div>
         </div>
 
         <div class="topbar__spacer"></div>
 
-        <!-- Кнопка меню -->
-        <!-- ✅ ЗОЛОТО -->
-        <button class="menuBtn uiGold" id="menuBtn" type="button" aria-haspopup="true" aria-expanded="false">
+        <button class="menuBtn uiGold" id="menuBtn" type="button">
             Щось глибше
         </button>
 
-        <!-- Випадаюче меню -->
         <div class="menu" id="menu" aria-hidden="true">
-            <!-- ✅ ЗОЛОТО -->
             <button class="menuItem uiGold" id="menuOracle" type="button">
                 Передбачення на сьогодні
             </button>
 
-            <!-- ✅ ЗОЛОТО -->
-            <button class="menuItem menuItem--hasSub uiGold" id="menuMusic" type="button" aria-expanded="false">
-                Музика для вайбу
-                <span class="menuCaret" aria-hidden="true">▾</span>
+            <button class="menuItem menuItem--hasSub uiGold" id="menuMusic" type="button">
+                Музика для вайбу <span class="menuCaret">▾</span>
+            </button>
+
+            <button class="menuItem uiGold" id="menuTarot" type="button">
+                Гадання на Таро 🔮
             </button>
 
             <div class="submenu" id="submenuMusic" aria-hidden="true">
-                <!-- ✅ ЗОЛОТО -->
-                <button class="submenuItem uiGold" type="button" data-playlist="morning">Ранковий вайб</button>
-                <button class="submenuItem uiGold" type="button" data-playlist="day">Вайб на день</button>
-                <button class="submenuItem uiGold" type="button" data-playlist="night">Нічний вайб</button>
+                <button class="submenuItem uiGold" data-playlist="morning">Ранковий вайб</button>
+                <button class="submenuItem uiGold" data-playlist="day">Вайб на день</button>
+                <button class="submenuItem uiGold" data-playlist="night">Нічний вайб</button>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Плеєр (показується тільки після вибору плейлиста) -->
-<section class="playerWrap" id="playerWrap" aria-label="Музика" hidden>
-    <div class="playerCard">
-        <div class="playerTop">
-            <!-- (можеш теж зробити золотим, якщо хочеш) -->
-            <div class="playerTitle uiGold" id="playerTitle">Музика для вайбу</div>
-            <button class="playerClose" id="playerClose" type="button" aria-label="Закрити плеєр">✕</button>
-        </div>
-
-        <div class="playerFrame">
-            <iframe
-                    id="playerIframe"
-                    title="YouTube плейлист"
-                    loading="lazy"
-                    allow="autoplay; encrypted-media; picture-in-picture"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                    allowfullscreen
-            ></iframe>
-        </div>
-    </div>
-</section>
-
-<!-- Основний контент -->
-<main class="content" aria-label="Контент">
-    <!-- Колонка “Вірш дня” -->
-    <section class="poemCol" aria-label="Вірш цього дня">
+<!-- Контент -->
+<main class="content">
+    <section class="poemCol">
         <div class="poemCard">
             <div class="poemHead">
-                <!-- ✅ ЗОЛОТО -->
                 <div class="poemLabel uiGold">Вірш цього дня</div>
                 <div class="poemDate uiGold" id="poemDate"></div>
             </div>
-
-            <div class="poemBody" id="poemBody" role="article" aria-live="polite">
-                <!-- сюди JS підставить вірш (залишається БІЛИМ) -->
-            </div>
+            <div class="poemBody" id="poemBody"></div>
         </div>
     </section>
 </main>
 
 <!-- Модалка передбачення -->
 <div class="oracleModal" id="oracleModal" aria-hidden="true">
-    <div class="oracleCard" role="dialog" aria-modal="true" aria-label="Передбачення на день">
+    <div class="oracleCard">
         <p class="oracleText" id="oracleText"></p>
-        <button class="oracleClose" id="oracleClose" type="button">Згорнути</button>
+        <button class="oracleClose" id="oracleClose">Згорнути</button>
     </div>
 </div>
 
-<!-- JS: порядок важливий -->
+<!-- =========================
+     TAROT MODAL
+     ========================= -->
+<div class="tarotModal" id="tarotModal" aria-hidden="true">
+    <div class="tarotCard">
+
+        <!-- Заголовок -->
+        <div class="tarotHeader">
+            <h2>ТАРО</h2>
+            <p>Обери розклад</p>
+        </div>
+
+        <!-- Вибір розкладу -->
+        <div id="tarotSelection" class="isOpen">
+            <div class="tarotSpreads">
+                <div class="spreadOption" data-spread="single">
+                    <h3>Одна Карта</h3>
+                    <p>Швидка відповідь</p>
+                </div>
+                <div class="spreadOption" data-spread="three">
+                    <h3>Три Карти</h3>
+                    <p>Минуле • Теперішнє • Майбутнє</p>
+                </div>
+                <div class="spreadOption" data-spread="celtic">
+                    <h3>Кельтський Хрест</h3>
+                    <p>Глибокий розклад</p>
+                </div>
+            </div>
+
+            <button class="tarotStart" id="tarotStartBtn" disabled>
+                ПОЧАТИ ГАДАННЯ
+            </button>
+
+            <button class="tarotClose" id="tarotCloseBtn">
+                Закрити
+            </button>
+        </div>
+
+        <!-- =========================
+             ГАДАННЯ
+             ========================= -->
+        <div id="tarotReading">
+
+            <!-- Карти -->
+            <div id="tarotCardsDisplay"></div>
+
+            <!-- 🔁 РЕСТАРТ (між картами і тлумаченням) -->
+            <div class="tarotRestartWrap">
+                <button class="tarotClose" id="tarotRestartBtn">
+                    НОВИЙ РОЗКЛАД
+                </button>
+            </div>
+
+            <!-- Тлумачення -->
+            <div id="tarotInterpretation" class="tarotInterpretation">
+                <h3>ТЛУМАЧЕННЯ</h3>
+                <div id="tarotInterpretationContent"></div>
+            </div>
+
+            <!-- Назад до вибору -->
+            <button class="tarotStart" id="tarotNewBtn">
+                НОВЕ ГАДАННЯ
+            </button>
+
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
 <script src="./assets/js/texts.js"></script>
 <script src="./assets/js/analytics.js"></script>
 <script src="./assets/js/time.js"></script>
@@ -124,6 +164,16 @@
 <script src="./assets/js/oracle.js"></script>
 <script src="./assets/js/menu.js"></script>
 <script src="./assets/js/app.js"></script>
+
+<script src="./assets/js/tarot-data.js"></script>
+<script src="./assets/js/tarot.js"></script>
+
+<!-- Відкриття Таро з меню -->
+<script>
+    document.getElementById("menuTarot")?.addEventListener("click", () => {
+        document.dispatchEvent(new Event("tarot:open"));
+    });
+</script>
 
 </body>
 </html>
