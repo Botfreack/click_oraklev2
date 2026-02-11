@@ -1,0 +1,35 @@
+/* =========================================
+   00-tokens.css — змінні (кольори/фон/тіні)
+   ========================================= */
+
+:root{
+    color-scheme: dark;
+
+    /* Фон-картинка */
+    --photo: url("https://cdn.stocksnap.io/img-thumbs/960w/sunset-palm%20trees_FEFAHHFBDU.jpg");
+
+    /* Кольори */
+    --ink: rgba(255,248,235,.92);
+    --inkSoft: rgba(255,248,235,.70);
+
+    --gold: rgba(210,178,119,.90);
+    --goldSoft: rgba(210,178,119,.22);
+
+    --glassA: rgba(15,16,15,.42);
+    --glassB: rgba(15,16,15,.20);
+
+    --shadowSoft: 0 18px 60px rgba(0,0,0,.42);
+    --shadowHard: 0 30px 90px rgba(0,0,0,.55);
+
+    --radiusM: 18px;
+    --radiusL: 22px;
+
+    --pad: 14px;
+
+    --topbarH: 68px; /* умовна висота панелі */
+}
+:root{
+    /* Тепле “золото” для інтерфейсу */
+    --goldText: rgba(210,178,119,.95);
+    --goldTextSoft: rgba(210,178,119,.78);
+}

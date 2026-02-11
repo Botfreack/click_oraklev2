@@ -1,0 +1,221 @@
+/* =========================================
+   POEM CAROUSEL (карусель віршів)
+   ========================================= */
+
+.poemCarousel {
+    width: min(620px, 92vw);
+    border-radius: var(--radiusL);
+    padding: 20px;
+    position: relative;
+
+    background:
+            radial-gradient(700px 260px at 20% 15%, rgba(255,255,255,.10), transparent 62%),
+            linear-gradient(180deg, rgba(15,16,15,.35), rgba(15,16,15,.20));
+
+    border: 1px solid rgba(255,236,200,.16);
+
+    box-shadow:
+            var(--shadowSoft),
+            0 0 0 1px rgba(255,255,255,.05) inset;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.poemCarousel__header {
+    display: flex;
+    justify-content: center; /* ✅ По центру */
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.poemLabel {
+    font-family: "Playfair Display","EB Garamond",serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: rgba(255,248,235,.95);
+    text-align: center; /* ✅ По центру */
+}
+
+/* ПРИХОВУЄМО стрілочку "Вся поезія" */
+.poemViewAll {
+    display: none;
+}
+
+.poemCarousel__track {
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px;
+    min-height: 280px;
+}
+
+.poemCarousel__slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s ease, visibility .5s ease;
+    padding: 16px;
+}
+
+.poemCarousel__slide.active {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+}
+
+.poemSlide__author {
+    font-family: "Playfair Display","EB Garamond",serif;
+    font-weight: 600;
+    font-size: 19px;
+    color: rgba(255,248,235,.95);
+    margin-bottom: 14px;
+    text-align: left;
+}
+
+/* ТЕКСТ ВІРША ПО ЦЕНТРУ */
+.poemSlide__text {
+    font-family: "Marck Script","Bad Script",cursive;
+    font-size: 18px;
+    line-height: 1.6;
+    letter-spacing: .02em;
+    color: rgba(255,248,235,.90);
+    white-space: pre-line;
+    margin-bottom: 18px;
+    min-height: 140px;
+    text-align: center;
+}
+
+/* КНОПКИ РОЗТЯГНУТІ В СТОРОНИ */
+.poemSlide__actions {
+    display: flex;
+    justify-content: space-between; /* ✅ Розтягнення в сторони */
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* КНОПКИ З БІЛЬШ ПОМІТНИМ ТЛО */
+.poemSlide__btn {
+    flex: 1; /* ✅ Займають рівномірно простір */
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,236,200,.28);
+    background:
+            linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.08));
+    color: rgba(255,248,235,.95);
+    font-family: "Marck Script","Bad Script",cursive;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all .2s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,.20);
+}
+
+.poemSlide__btn:hover {
+    border-color: rgba(255,236,200,.45);
+    background:
+            linear-gradient(180deg, rgba(255,255,255,.20), rgba(255,255,255,.12));
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0,0,0,.28);
+}
+
+.poemCarousel__dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.poemDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,236,200,.25);
+    border: none;
+    cursor: pointer;
+    transition: all .3s ease;
+    padding: 0;
+}
+
+.poemDot.active {
+    background: rgba(255,236,200,.80);
+    width: 24px;
+    border-radius: 4px;
+}
+
+.poemCarousel__nav {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    padding: 0 -8px;
+}
+
+.poemCarousel__prev,
+.poemCarousel__next {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,236,200,.18);
+    background:
+            linear-gradient(180deg, rgba(15,16,15,.60), rgba(15,16,15,.40));
+    color: rgba(255,248,235,.85);
+    font-size: 24px;
+    cursor: pointer;
+    pointer-events: all;
+    transition: all .5s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.poemCarousel__prev:hover,
+.poemCarousel__next:hover {
+    background:
+            linear-gradient(180deg, rgba(15,16,15,.75), rgba(15,16,15,.55));
+    border-color: rgba(255,236,200,.30);
+}
+
+@media (max-width: 680px) {
+    .poemCarousel {
+        padding: 16px;
+    }
+
+    .poemSlide__author {
+        font-size: 17px;
+    }
+
+    .poemSlide__text {
+        font-size: 16px;
+        min-height: 120px;
+    }
+
+    .poemSlide__actions {
+        flex-direction: column; /* На мобілці — вертикально */
+    }
+
+    .poemSlide__btn {
+        font-size: 13px;
+        padding: 9px 16px;
+        width: 100%; /* На мобілці на всю ширину */
+    }
+
+    .poemCarousel__prev,
+    .poemCarousel__next {
+        width: 36px;
+        height: 36px;
+        font-size: 20px;
+    }
+}

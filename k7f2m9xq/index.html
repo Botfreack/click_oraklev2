@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Передбачення ✨</title>
+
+    <!-- Шрифти (ОДИН раз) -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=EB+Garamond:wght@400;500;600&family=Cinzel:wght@400;600;700&family=Marck+Script&family=Bad+Script&display=swap" rel="stylesheet">
+
+    <!-- Plausible -->
+    <script async src="https://plausible.io/js/pa-TdlGMh4DjYdDLwJqD09Bq.js"></script>
+    <script>
+        window.plausible = window.plausible || function () {
+            (plausible.q = plausible.q || []).push(arguments);
+        };
+    </script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./assets/css/00-tokens.css" />
+    <link rel="stylesheet" href="./assets/css/01-base.css" />
+    <link rel="stylesheet" href="./assets/css/02-layout.css" />
+    <link rel="stylesheet" href="./assets/css/03-components.css" />
+    <link rel="stylesheet" href="./assets/css/04-modals.css" />
+    <link rel="stylesheet" href="./assets/css/05-tarot.css" />
+    <link rel="stylesheet" href="./assets/css/carousel_poem.css" />
+</head>
+
+<body>
+
+<!-- Overlay меню -->
+<div class="menuOverlay" id="menuOverlay" aria-hidden="true"></div>
+
+<!-- Верхня панель -->
+<!-- Верхня панель -->
+<header class="topbar" aria-label="Верхня панель">
+    <div class="topbar__inner">
+
+        <!-- ✅ Кнопка "Головна" (додано клас menuBtn для однакового стилю) -->
+        <a class="menuBtn" href="../">Головна</a>
+
+        <div class="meta" aria-label="Дата та час">
+            <div class="metaBadge uiGold" id="metaDate"></div>
+            <div class="metaBadge uiGold" id="metaTime"></div>
+        </div>
+
+        <div class="topbar__spacer"></div>
+
+        <!-- ✅ Кнопка "Щось глибше" (вже має клас menuBtn) -->
+        <button class="menuBtn"
+                id="menuBtn"
+                type="button"
+                aria-haspopup="true"
+                aria-expanded="false">
+            Щось глибше
+        </button>
+
+        <div class="menu" id="menu" aria-hidden="true">
+            <button class="menuItem uiGold" id="menuOracle" type="button">
+                Передбачення на сьогодні
+            </button>
+            <!-- ✅ НОВА КНОПКА "Вся поезія" -->
+            <a class="menuItem uiGold" href="./poetry/" style="text-decoration: none; display: block;">
+                Поезія 📖
+            </a>
+
+            <button class="menuItem uiGold" id="menuTarot" type="button">
+                Гадання на Таро 🔮
+            </button>
+
+            <button class="menuItem menuItem--hasSub uiGold" id="menuMusic" type="button" aria-expanded="false">
+                Музика для вайбу <span class="menuCaret" aria-hidden="true">▾</span>
+            </button>
+
+            <div class="submenu" id="submenuMusic" aria-hidden="true">
+                <button class="submenuItem uiGold" type="button" data-playlist="morning">Ранковий вайб</button>
+                <button class="submenuItem uiGold" type="button" data-playlist="day">Вайб на день</button>
+                <button class="submenuItem uiGold" type="button" data-playlist="night">Нічний вайб</button>
+            </div>
+        </div>
+
+    </div>
+</header>
+
+<!-- ✅ ПЛЕЄР (має бути в HTML, інакше все ламається) -->
+<section class="playerWrap" id="playerWrap" aria-label="Музика" hidden>
+    <div class="playerCard">
+        <div class="playerTop">
+            <div class="playerTitle uiGold" id="playerTitle">Музика для вайбу</div>
+            <button class="playerClose" id="playerClose" type="button" aria-label="Закрити плеєр">✕</button>
+        </div>
+
+        <div class="playerFrame">
+            <iframe
+                    id="playerIframe"
+                    title="YouTube плейлист"
+                    loading="lazy"
+                    allow="autoplay; encrypted-media; picture-in-picture"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen
+            ></iframe>
+        </div>
+    </div>
+</section>
+
+<!-- Контент -->
+<main class="content" aria-label="Контент">
+    <section class="poemCol" aria-label="Поезія">
+        <div class="poemCarousel">
+            <div class="poemCarousel__header">
+                <div class="poemLabel uiGold">Поезія для душі</div>
+                <a href="./poetry/" class="poemViewAll uiGold">Вся поезія →</a>
+            </div>
+
+            <div class="poemCarousel__track" id="poemTrack">
+                <!-- Картки генеруються JS -->
+            </div>
+
+            <div class="poemCarousel__dots" id="poemDots">
+                <!-- Dots генеруються JS -->
+            </div>
+
+            <div class="poemCarousel__nav">
+                <button class="poemCarousel__prev" id="poemPrev" aria-label="Попередній вірш">‹</button>
+                <button class="poemCarousel__next" id="poemNext" aria-label="Наступний вірш">›</button>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Модалка передбачення -->
+<div class="oracleModal" id="oracleModal" aria-hidden="true">
+    <div class="oracleCard" role="dialog" aria-modal="true" aria-label="Передбачення на день">
+        <p class="oracleText" id="oracleText"></p>
+        <button class="oracleClose" id="oracleClose" type="button">Згорнути</button>
+    </div>
+</div>
+
+<!-- =========================
+     TAROT MODAL
+     ========================= -->
+<div class="tarotModal" id="tarotModal" aria-hidden="true">
+    <div class="tarotCard" role="dialog" aria-modal="true" aria-label="Гадання на Таро">
+
+        <div class="tarotHeader">
+            <h2>ТАРО</h2>
+            <p>Обери розклад</p>
+        </div>
+
+        <div id="tarotSelection" class="isOpen">
+            <div class="tarotSpreads">
+                <div class="spreadOption" data-spread="single">
+                    <h3>Одна Карта</h3>
+                    <p>Швидка відповідь</p>
+                </div>
+
+                <div class="spreadOption" data-spread="three">
+                    <h3>Три Карти</h3>
+                    <p>Минуле • Теперішнє • Майбутнє</p>
+                </div>
+
+                <div class="spreadOption" data-spread="celtic">
+                    <h3>Кельтський Хрест</h3>
+                    <p>Глибокий розклад</p>
+                </div>
+            </div>
+
+            <button class="tarotStart" id="tarotStartBtn" type="button" disabled>ПОЧАТИ ГАДАННЯ</button>
+            <button class="tarotClose" id="tarotCloseBtn" type="button">Закрити</button>
+        </div>
+
+        <div id="tarotReading">
+            <div id="tarotCardsDisplay"></div>
+
+            <!-- 🔁 РЕСТАРТ (між картами і тлумаченням) -->
+            <div class="tarotRestartWrap">
+                <button class="tarotClose" id="tarotRestartBtn" type="button">НОВИЙ РОЗКЛАД</button>
+            </div>
+
+            <div id="tarotInterpretation" class="tarotInterpretation">
+                <h3>ТЛУМАЧЕННЯ</h3>
+                <div id="tarotInterpretationContent"></div>
+            </div>
+
+            <button class="tarotStart" id="tarotNewBtn" type="button">НОВЕ ГАДАННЯ</button>
+        </div>
+
+    </div>
+</div>
+
+<!-- JS -->
+<script src="./assets/js/texts.js"></script>
+<script src="./assets/js/analytics.js"></script>
+<script src="./assets/js/time.js"></script>
+<script src="./assets/js/poems-data.js"></script>
+<script src="./assets/js/poems.js"></script>
+<script src="./assets/js/oracle.js"></script>
+<script src="./assets/js/menu.js"></script>
+<script src="./assets/js/app.js"></script>
+
+<script src="./assets/js/tarot-data.js"></script>
+<script src="./assets/js/tarot.js"></script>
+<script src="./assets/js/poem-carousel.js"></script>
+
+<!-- Відкриття Таро з меню (акуратно закриваємо меню/оверлей) -->
+<script>
+    (function () {
+        const menuTarot = document.getElementById("menuTarot");
+        if (!menuTarot) return;
+
+        menuTarot.addEventListener("click", () => {
+            const menu = document.getElementById("menu");
+            const overlay = document.getElementById("menuOverlay");
+            const menuBtn = document.getElementById("menuBtn");
+
+            if (menu) {
+                menu.classList.remove("isOpen");
+                menu.setAttribute("aria-hidden", "true");
+            }
+            if (overlay) {
+                overlay.classList.remove("isOpen");
+                overlay.setAttribute("aria-hidden", "true");
+            }
+            if (menuBtn) {
+                menuBtn.setAttribute("aria-expanded", "false");
+            }
+
+            document.dispatchEvent(new Event("tarot:open"));
+        });
+    })();
+</script>
+
+</body>
+</html>

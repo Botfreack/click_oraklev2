@@ -1,0 +1,134 @@
+/* =========================================
+   02-layout.css — сітка/розмітка
+   ========================================= */
+
+/* Верхня лінія */
+.topbar{
+    position: sticky;
+    top: 0;
+    z-index: 30;
+
+    padding: 10px var(--pad);
+    padding-top: calc(10px + env(safe-area-inset-top));
+
+    /* “повітряна лінія” */
+    background:
+            linear-gradient(180deg, rgba(0,0,0,.32), rgba(0,0,0,.08));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    border-bottom: 1px solid rgba(255,236,200,.10);
+}
+
+.topbar__inner{
+    display:flex;
+    align-items:center;
+    gap: 12px;
+}
+
+.topbar__spacer{ flex: 1; }
+
+/* Плеєр — під топбаром */
+.playerWrap{
+    padding: 12px var(--pad);
+}
+
+/* Основний контент */
+.content{
+    padding: 14px var(--pad) calc(110px + env(safe-area-inset-bottom)); /* запас під нижню кнопку */
+}
+
+/* Колонка з віршем */
+.poemCol{
+    display:flex;
+    justify-content:flex-start;
+}
+
+/* На телефоні — в центр */
+@media (max-width: 680px){
+    .poemCol{ justify-content:center; }
+}
+/* ====== Меню: позиція та розміри ====== */
+.menuPanel{
+    position: fixed;
+    top: 86px;                 /* нижче верхньої лінії */
+    right: 18px;
+    z-index: 30;
+
+    width: min(380px, calc(100vw - 36px));
+    max-height: calc(100vh - 110px);
+    overflow: auto;
+
+    border-radius: 18px;
+}
+
+/* На великих екранах — хай буде трохи вище/правіше */
+@media (min-width: 900px){
+    .menuPanel{
+        top: 78px;
+        right: 48px;
+        width: 420px;
+        max-height: calc(100vh - 120px);
+    }
+}
+/* ====== ЄДИНИЙ ШРИФТ ДЛЯ МЕНЮ ====== */
+.menuPanel,
+.menuPanel *{
+    font-family: "EB Garamond", Georgia, "Times New Roman", serif !important;
+    letter-spacing: .02em;
+}
+
+/* Тексти пунктів меню — рівні, спокійні */
+.menuItem, .menuTitle{
+    font-size: 18px;
+    font-weight: 500;
+    color: rgba(255,248,235,.92);
+}
+
+/* Малий підпис/дата в меню */
+.menuMeta{
+    font-size: 13px;
+    opacity: .75;
+}
+/* ====== Оверлей під меню ====== */
+.menuOverlay{
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+
+    /* затемнення + легкий блюр */
+    background: rgba(0,0,0,.28);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* коли меню відкрите */
+body.menuOpen .menuOverlay{
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.topbar{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* дата + час завжди вправо */
+.topbar .meta{
+    margin-left: auto;
+    display: flex;
+    gap: 10px;
+}
+
+/* "Головна" менш агресивна */
+.btnHome{
+    opacity: .85;
+}
+.btnHome:hover{
+    opacity: 1;
+}
