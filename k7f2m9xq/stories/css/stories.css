@@ -1,0 +1,433 @@
+/* =========================================
+   STORIES SECTION (оповідання)
+   ========================================= */
+
+.storiesSection {
+    min-height: 100vh;
+    margin: 0;
+    padding: 80px 16px 40px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.storiesTitle {
+    font-family: 'Playfair Display', 'EB Garamond', serif;
+    font-size: 48px;
+    font-weight: 600;
+    letter-spacing: .03em;
+    text-align: center;
+    color: var(--pill-text);
+    margin: 0 0 50px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: geometricPrecision;
+}
+
+.storiesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* ✅ КАРТКИ ОПОВІДАНЬ */
+.storyCard {
+    position: relative;
+    padding: 32px 28px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 232, 200, .12);
+    background:
+            linear-gradient(180deg, rgba(10, 10, 10, .22), rgba(10, 10, 10, .08));
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow:
+            0 10px 28px rgba(0,0,0,.30),
+            0 1px 0 rgba(255,255,255,.04) inset;
+    transition:
+            transform .16s cubic-bezier(.4, 0, .2, 1),
+            border-color .16s ease,
+            box-shadow .16s cubic-bezier(.4, 0, .2, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.storyCard:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 232, 200, .24);
+    box-shadow:
+            0 14px 36px rgba(0,0,0,.40),
+            0 0 0 6px rgba(255, 206, 140, .12),
+            0 1px 0 rgba(255,255,255,.06) inset;
+}
+
+.storyCard__date {
+    display: none;
+}
+
+.storyCard__title {
+    font-family: 'Playfair Display', 'EB Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: .01em;
+    color: var(--pill-text);
+    margin: 0 0 8px;
+    line-height: 1.3;
+    text-align: left;
+    -webkit-font-smoothing: antialiased;
+}
+
+.storyCard__author {
+    font-family: 'EB Garamond', serif;
+    font-size: 14px;
+    font-style: italic;
+    color: rgba(255, 246, 234, .70);
+    margin: 0 0 20px 0;
+}
+
+.storyCard__preview {
+    font-family: 'EB Garamond', serif;
+    font-size: 16px;
+    line-height: 1.7;
+    letter-spacing: .01em;
+    color: rgba(255, 246, 234, .88);
+    margin: 0 0 24px;
+    flex-grow: 1;
+    text-align: left;
+    -webkit-font-smoothing: antialiased;
+}
+
+.storyCard__readMore {
+    align-self: flex-start;
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 232, 200, .20);
+    background:
+            linear-gradient(180deg, rgba(10, 10, 10, .30), rgba(10, 10, 10, .12));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: rgba(255, 246, 234, .90);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: .02em;
+    cursor: pointer;
+    transition: all .2s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,.25);
+}
+
+.storyCard__readMore:hover {
+    transform: translateY(-1px);
+    border-color: rgba(255, 232, 200, .32);
+    box-shadow: 0 6px 16px rgba(0,0,0,.35);
+}
+
+/* =========================================
+   МОДАЛЬНЕ ВІКНО З ПАГІНАЦІЄЮ
+   ========================================= */
+
+.storyModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .3s ease;
+    padding: 16px;
+}
+
+.storyModal.isOpen {
+    opacity: 1;
+    visibility: visible;
+}
+
+.storyModalCard {
+    max-width: 900px;
+    width: 100%;
+    height: 95vh;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 232, 200, .18);
+    background:
+            linear-gradient(180deg, rgba(10, 10, 10, .95), rgba(10, 10, 10, .92));
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 60px rgba(0,0,0,.70);
+    overflow: hidden;
+}
+
+.storyModalHeader {
+    padding: 28px 32px 20px;
+    border-bottom: 1px solid rgba(255, 232, 200, .10);
+}
+
+.storyModalTitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--pill-text);
+    margin: 0 0 8px;
+    line-height: 1.3;
+}
+
+.storyModalAuthor {
+    font-family: 'EB Garamond', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: rgba(255, 246, 234, .75);
+    margin: 0;
+}
+
+.storyModalContent {
+    flex: 1;
+    overflow-y: auto;
+    padding: 32px 40px;
+}
+
+.storyModalPage {
+    display: none;
+    animation: fadeIn .3s ease;
+}
+
+.storyModalPage.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.storyModalText {
+    font-family: 'EB Garamond', serif;
+    font-size: 19px;
+    line-height: 1.9;
+    letter-spacing: .01em;
+    color: rgba(255, 246, 234, .92);
+    white-space: pre-line;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.storyModalFooter {
+    padding: 18px 32px;
+    border-top: 1px solid rgba(255, 232, 200, .10);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.storyPagination {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.storyPageBtn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 232, 200, .20);
+    background: linear-gradient(180deg, rgba(10, 10, 10, .40), rgba(10, 10, 10, .20));
+    color: rgba(255, 246, 234, .85);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .2s ease;
+}
+
+.storyPageBtn:hover:not(:disabled) {
+    border-color: rgba(255, 232, 200, .35);
+    background: linear-gradient(180deg, rgba(10, 10, 10, .55), rgba(10, 10, 10, .35));
+}
+
+.storyPageBtn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.storyPageInfo {
+    font-family: 'EB Garamond', serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(255, 246, 234, .80);
+    min-width: 60px;
+    text-align: center;
+}
+
+.storyModalClose {
+    padding: 10px 20px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 232, 200, .20);
+    background: linear-gradient(180deg, rgba(10, 10, 10, .30), rgba(10, 10, 10, .12));
+    color: rgba(255, 246, 234, .90);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.storyModalClose:hover {
+    border-color: rgba(255, 232, 200, .32);
+    transform: translateY(-1px);
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+    .storiesSection { padding: 70px 12px 40px; }
+    .storiesTitle { font-size: 38px; }
+    .storiesGrid { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+
+    .storyModal { padding: 12px; }
+    .storyModalCard { height: 96vh; }
+    .storyModalHeader { padding: 22px 24px 16px; }
+    .storyModalContent { padding: 24px 28px; }
+    .storyModalFooter { padding: 14px 24px; flex-direction: column; }
+    .storyModalTitle { font-size: 24px; }
+    .storyModalText { font-size: 17px; line-height: 1.8; }
+}
+
+@media (max-width: 520px) {
+    .storiesSection { padding: 60px 10px 30px; }
+    .storiesTitle { font-size: 32px; }
+    .storiesGrid { grid-template-columns: 1fr; }
+
+    .storyModal { padding: 8px; }
+    .storyModalCard { height: 97vh; border-radius: 16px; }
+    .storyModalHeader { padding: 18px 20px 14px; }
+    .storyModalContent { padding: 20px 24px; }
+    .storyModalFooter { padding: 12px 20px; }
+    .storyModalTitle { font-size: 22px; }
+    .storyModalText { font-size: 16px; line-height: 1.75; }
+}
+
+/* Кнопка закладки */
+.storyBookmark {
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 232, 200, .20);
+    background: linear-gradient(180deg, rgba(10, 10, 10, .30), rgba(10, 10, 10, .12));
+    color: rgba(255, 246, 234, .90);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.storyBookmark:hover {
+    border-color: rgba(255, 232, 200, .32);
+    transform: translateY(-1px);
+}
+
+/* Prompt для закладки */
+.bookmarkPrompt {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    z-index: 10001;
+    opacity: 0;
+    transition: all .3s cubic-bezier(.4, 0, .2, 1);
+}
+
+.bookmarkPrompt.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.bookmarkPromptCard {
+    background: linear-gradient(180deg, rgba(10, 10, 10, .95), rgba(10, 10, 10, .90));
+    border: 1px solid rgba(255, 232, 200, .20);
+    border-radius: 16px;
+    padding: 28px 32px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.70);
+    backdrop-filter: blur(20px);
+    text-align: center;
+    min-width: 320px;
+}
+
+.bookmarkPromptCard p {
+    font-family: 'EB Garamond', serif;
+    font-size: 18px;
+    color: rgba(255, 246, 234, .90);
+    margin: 0 0 20px;
+}
+
+.bookmarkPromptActions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.bookmarkPromptBtn {
+    padding: 10px 20px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 232, 200, .28);
+    background: linear-gradient(180deg, rgba(255, 255, 255, .14), rgba(255, 255, 255, .08));
+    color: rgba(255, 246, 234, .95);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.bookmarkPromptBtn--secondary {
+    background: linear-gradient(180deg, rgba(10, 10, 10, .30), rgba(10, 10, 10, .12));
+    border-color: rgba(255, 232, 200, .18);
+}
+
+.bookmarkPromptBtn:hover {
+    border-color: rgba(255, 232, 200, .40);
+    transform: translateY(-1px);
+}
+
+/* Notification */
+.bookmarkNotification {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 14px 24px;
+    background: linear-gradient(180deg, rgba(10, 10, 10, .95), rgba(10, 10, 10, .90));
+    border: 1px solid rgba(255, 232, 200, .24);
+    border-radius: 999px;
+    color: rgba(255, 246, 234, .92);
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 10px 30px rgba(0,0,0,.50);
+    z-index: 10002;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all .3s cubic-bezier(.4, 0, .2, 1);
+}
+
+.bookmarkNotification.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (max-width: 520px) {
+    .bookmarkPromptCard {
+        min-width: 280px;
+        padding: 24px 28px;
+    }
+
+    .bookmarkNotification {
+        bottom: 20px;
+        right: 20px;
+        font-size: 13px;
+        padding: 12px 20px;
+    }
+}
