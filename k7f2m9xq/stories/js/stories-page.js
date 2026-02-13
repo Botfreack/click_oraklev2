@@ -5,6 +5,7 @@
     const STORY_FILES = [
         'story-001.txt',
         'story-002.txt',
+        'story-003.txt',
     ];
 
     const CHARS_PER_PAGE = 1500;
